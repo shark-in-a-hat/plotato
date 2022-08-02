@@ -145,7 +145,8 @@
         <nav id='top'> 
         <br>
             <ul>
-              <li><a href='#introduction'>Introduction</a></li>              
+              <li><a href='#introduction'>Introduction</a></li>
+               <li><a href='#html_structure'>HTML Structure</a></li> 
               <li>
                 <a href='#engine'>Engine Features</a>
                 <ul>
@@ -244,6 +245,118 @@
                     
                     <a href='#top'>[Back to top]</a>
                 </article>   
+            <h1 id='html_structure'>HTML Structure </h1>
+                <article>
+                    <p>
+                        The game engine uses div markers for specific elements. Most of them h#ave unique classes and 
+                        any div that is manipulated later by the Python script has a unique id.
+                    </p>
+                    <p>
+                        Elements that are hidden by default have a local style set overriding their display property to none
+                        <span class='api_inline'>style="display: none;"</span>. This is also how the engine hides elemnts 
+                        using the <span class='api_inline'>_show( element_id, show=False )</span> function.
+                    </p>
+                    <h2>Head</h2>
+                    <p>
+                        There is very little here beyond what one would normally find in a html document head. Meta tags,
+                        scripts (Brython), css reference. Depending on the version there might be a small helper javascript function
+                        defined here that is used for text-to-speech.
+                    </p>
+                    <h2>Body</h2>
+                    <h3>svg</h3>
+                    <p>The svg tag at the top is used only to define the filters. </p>
+                    <ul>
+                        <li>filter_night</li>
+                        <li>filter_default</li>
+                    </ul>
+                    <h3>error_box</h3>
+                    <p>This div is a placeholder for errors displayed via <span class='api_inline'>show_error()</span></p>
+                    
+                    <h3>mod_menu</h3>
+                    <p>This is a div where mod creators can add their own widgets using <span class='api_inline'>add_mod_cfg()</span</p>
+                    
+                    <h3>tts_config</h3>
+                    <p>This is a div with text-to-speech configuration. </p>
+                    
+                    <h3>history</h3>
+                    <p>This is a placeholder div for displaying the playthrough history.</p>
+                    
+                    <h3>modal</h3>
+                    <p>This is a placeholder/template for modal widgets (pop-ups)</p>
+                    
+                    <h3>copyright</h3>
+                    <p>Container for displaying the version and copyright notice at the bottom</p>
+                    
+                    <h3>portrait_mode</h3>
+                    <p>Used only to display a message prompting the user to flip his device if the game window is tallar then wider.</p>
+                    
+                    <h3>click_anywhere</h3>
+                    <p>An element coverint all available space, used to capture mouse click events after hiding the game controls.</p>
+                    
+                    <h3>music_player</h3>
+                    <p>Placehooder for embedded audio.</p>
+                    
+                    <h3>spacer</h3>
+                    <p>Empty space at the bottom, added to help with the page layout.</p>
+                    
+                    <h3>container</h3>
+                    <p>This is the main game window, all widgets apart from the ones mention above are placed inside this div.</p>
+                    
+                    <h3>imgs</h3>
+                    <p> Images (background images) are rendered into this div</p>
+                    
+                    <h3>imgs_aux</h3>
+                    <p>Used for images other than the main image (parallax scrolling images)</p>
+                    
+                    <h3>npc_img</h3>
+                    <p>The NPC image. This is a single img tag, as only one NPC can be displayed at once.</p>
+                    
+                    <h3>pc_imgs</h3>
+                    <p>PC images are placed here.</p>
+                    
+                    <h3>imgs_overlay</h3>
+                    <p>Placeholder for overlay images (usually rendered on top of pc and npc images)</p>
+                    
+                    <h3>credits</h3>
+                    <p>Used for displaying credits</p>
+                    
+                    <h3>choice_box</h3>
+                    <p>Placeholder for choice buttons</p>
+                    
+                    <h3>cloths</h3>
+                    <p>Th shop/wardrobe UI. Has a lot of elements, see source.</p>
+                    
+                    <h3>status</h3>
+                    <p>Status bar placeholder (for time, money and other? stats)</p>
+                    
+                    <h3>main_txt</h3>
+                    <p>Container for the text. The player usually needs to click on it to progress the story, so appart from the 
+                    styling, there are click event listeners attached to this div</p>
+                    
+                    <h3>left_corner, right_corner</h3>
+                    <p>Placeholders for positioning widgets in the right and left top corners.</p>
+                    
+                    <h3>settings</h3>
+                    <p>Container for the settings/options/mods and save/load buttons, see source for details.</p>
+                    
+                    <h3>questlog</h3>
+                    <p>Container for the quest log entries.</p>
+                    
+                    <h3>rollback</h3>
+                    <p>Container for the  rollback button and description</p>
+                    
+                    <h3>overlay</h3>
+                    <p>Used for css overlay effects - like <span class='api_inline'>splash()</span></p>
+                    
+                    <h3>loading</h3>
+                    <p>Container onlyused for displaying a loading message</p>
+                    
+                    <h3>monetize</h3>
+                    <p>Container for support/monetize buttons</p>
+                    
+                    
+                    <a href='#top'>[Back to top]</a>
+                </article>
             <h1 id='engine'>Engine Features </h1>
                 <article>
                     <p>In this section you can find a brief description of most of the key features
@@ -442,6 +555,10 @@
                     </p>
                     <p> The NPC system is deeply embedded into the engine, it's data files and editor.
                     Usually all that the game creator needs to do is to select the name of the NPC from the editor.
+                    </p>
+                    <p>
+                        For situations where the NPC image can't be determined beforehand or one needs a dynamic or random image, a f-string can be used in place of the image name. For example one can set a save variable
+                        <span class='api_inline'>save.rand_npc_img = randint(5)</span> and then use <span class="api_inline">img/npc/random_npc_{save.rand_npc_img}.png</span> to display one of a few pre-made random npc avatars. 
                     </p>
                     <div class='api'>
                         <span class='api_def'>_show_npc</span>(npc_img)
